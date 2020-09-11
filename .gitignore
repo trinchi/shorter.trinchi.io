@@ -1,0 +1,12 @@
+.env
+build/
+node_modules/
+
+### Webstorm IDEA ###
+.idea
+
+### VS Code ###
+.vscode/
+
+### Firebase Private Key ###
+shorter*firebase*.json
