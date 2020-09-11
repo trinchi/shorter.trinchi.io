@@ -3,6 +3,8 @@ import express from "express";
 import dotenv from "dotenv";
 import api from "./routes/api";
 import {FirebaseInitializer} from "./services/FirebaseInitializer";
+import {UrlDto} from "./model/UrlDto";
+import {FirestoreService} from "./services/FirestoreService";
 
 // load .env variables
 dotenv.config();
@@ -25,5 +27,20 @@ FirebaseInitializer.initialize().then(() => {
     });
 
     APP.use('/api', api);
+
+    // redirect to url behind shortUrl
+    APP.get('/:shortUrl', async (req: Request, res: Response, next) => {
+        const shortUrl: string = req.params.shortUrl;
+        let urlDto: UrlDto;
+
+        try {
+            urlDto = await FirestoreService.getShortUrl(shortUrl);
+        } catch (e) {
+            return next(e);
+        }
+
+        const STATUS_CODE = 303;
+        res.redirect(STATUS_CODE, urlDto.url);
+    });
 });
 

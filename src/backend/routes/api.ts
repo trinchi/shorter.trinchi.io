@@ -1,4 +1,4 @@
-import {Request, Response, Application, Router} from "express";
+import {Router} from "express";
 import express from "express";
 import shorter from "./shorter";
 
