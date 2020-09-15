@@ -47,7 +47,7 @@ FirebaseInitializer.initialize().then(() => {
     APP.use(express.static(path.join(__dirname, 'build')));
 
     APP.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+        res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
 });
 
