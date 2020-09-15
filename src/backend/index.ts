@@ -5,6 +5,7 @@ import api from "./routes/api";
 import {FirebaseInitializer} from "./services/FirebaseInitializer";
 import {UrlDto} from "./model/UrlDto";
 import {FirestoreService} from "./services/FirestoreService";
+import path from "path";
 
 // load .env variables
 dotenv.config();
@@ -41,6 +42,12 @@ FirebaseInitializer.initialize().then(() => {
 
         const STATUS_CODE = 303;
         res.redirect(STATUS_CODE, urlDto.url);
+    });
+
+    APP.use(express.static(path.join(__dirname, 'build')));
+
+    APP.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
     });
 });
 
