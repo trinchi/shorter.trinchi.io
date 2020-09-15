@@ -4,7 +4,7 @@
     "build": "tsc",
     "react": "webpack --mode development",
     "prestart": "npm run build && npm run react",
-    "start": "npm run prestart && node build/index.js",
+    "start": "npm run prestart && node build/backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

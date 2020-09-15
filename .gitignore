@@ -1,6 +1,6 @@
 .env
 build/
-public/bundle.js
+public/assets/bundle.js
 node_modules/
 
 ### Webstorm IDEA ###

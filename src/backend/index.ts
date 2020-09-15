@@ -17,17 +17,18 @@ FirebaseInitializer.initialize().then(() => {
     // initialize express
     const APP: Application = express();
 
-    // testing endpoint
-    APP.get('/', (req: Request, res: Response) => {
-        res.send("FOO");
-    });
-
     APP.listen(SERVER_PORT, () => {
         // tslint:disable-next-line:no-console
         console.log(`server started at http://localhost:${SERVER_PORT}`);
     });
 
     APP.use('/api', api);
+
+    APP.use(express.static(path.join(__dirname, '../../public')));
+
+    APP.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, '../../public', 'index.html'));
+    });
 
     // redirect to url behind shortUrl
     APP.get('/:shortUrl', async (req: Request, res: Response, next) => {
@@ -42,12 +43,6 @@ FirebaseInitializer.initialize().then(() => {
 
         const STATUS_CODE = 303;
         res.redirect(STATUS_CODE, urlDto.url);
-    });
-
-    APP.use(express.static(path.join(__dirname, 'build')));
-
-    APP.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
 });
 
